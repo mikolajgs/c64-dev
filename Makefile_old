@@ -1,0 +1,44 @@
+X64=x64sc
+
+LABEL_FILE=labels.txt
+
+ASM=64tass
+ASM_FLAGS=--ascii --case-sensitive -Wshadow --m6502 --vice-labels -l $(LABEL_FILE)
+
+NC=nc 127.0.0.1 6510
+
+X64_STDOUT=x64sc.log
+X64_STDERR=x64sc.err
+
+TARGET=demo.prg
+TARGET_MUSIC=demo.sid
+
+all: $(TARGET)
+
+$(TARGET): demo.s demo.sid
+	$(ASM) $(ASM_FLAGS) -o $@ $<
+
+run: $(TARGET)
+	
+
+#run: $(TARGET)
+#	echo 'reset 0' | $(NC)
+#	sleep 2
+#	echo 'clear_labels' | $(NC)
+#	echo 'load_labels "$(LABEL_FILE)"' | $(NC)
+#	#echo 'l "$(TARGET_MUSIC)" 0' | $(NC)
+#	echo 'l "$(TARGET)" 0' | $(NC)
+#	sleep 2
+#	echo 'g 080d' | $(NC)
+#	echo 'f 0277 027a 52 55 4e 0d' | $(NC)
+#	echo 'f 00c6 00c6 04' | $(NC)
+
+#start:
+#	$(X64) -remotemonitor 1>$(X64_STDOUT) 2>$(X64_STDERR) &
+
+
+
+.PHONY: clean
+clean:
+	rm -f demo.prg
+
