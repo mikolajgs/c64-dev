@@ -1,3 +1,6 @@
+           * = $2000
+           .binary "picture.sda", 0
+
            * = $0801
 
            .word (+), 2016
@@ -6,34 +9,37 @@
 
 start      lda #$00
            sta $d020
+           lda $4711
            sta $d021
            tax
-           lda #$00
-clrscreen
-           sta $0400,x
-           sta $0500,x
-           sta $0600,x
-           sta $0700,x
-           sta $2000,x ; and the charset data to 0
-           dex
-           bne clrscreen
-           lda #$018 ; screen at $0400, chars at $2000
-           sta $d018
-mainloop
-           lda $d012
-           cmp #$fe ; on raster line $ff?
-           bne mainloop
-           ldx counter ; get offset value
-           inx
-           cpx #88 ; it it's 28, start over
-           bne juststx
-           ldx #$00
-juststx
-           stx counter
-           lda $2000,x ;get byte nr x from chardata
-           eor #$ff ; invert it
-           sta $2000,x ;store it back
 
+copyloop:
+           lda $3f40,x  ; copy colours to screen RAM
+           sta $0400,x
+           lda $4040,x
+           sta $0500,x
+           lda $4140,x
+           sta $0600,x
+           lda $4240,x
+           sta $0700,x
+           lda $4328,x  ; copy colours to colour RAM
+           sta $d800,x
+           lda $4428,x
+           sta $d900,x
+           lda $4528,x
+           sta $da00,x
+           lda $4628,x
+           sta $db00,x
+           dex
+           bne copyloop
+
+           lda #$3b     ; bitmap mode
+           ldx #$18     ; multi-colour mode
+           ldy #$18     ; screen at $0400, bitmap at $2000
+           sta $d011
+           stx $d016
+           sty $d018
+
+mainloop:
            jmp mainloop ; keep going...
-counter
-           .byte 8 ;initial value for counter
+

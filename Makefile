@@ -4,7 +4,7 @@ ASM=64tass
 all: demo.prg
 	x64sc -autostartprgmode 1 -chdir `pwd` -autostart-warp +truedrive +cart $<
 
-demo.prg: demo.s demo.sid
+demo.prg: demo.s picture.sda
 	64tass -C -a -B -i $< -o $@
 
 .PHONY: all clean
