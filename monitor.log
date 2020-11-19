@@ -25,3 +25,38 @@ Displaying directory: `/Users/nicholas/Repos/gasiordev/c64-dev'
 (C:$0824) x
 (C:$0829) 
 (C:$0829) 
+(C:$ea84) 
+(C:$ea84) ls
+Displaying directory: `/Users/nicholas/Repos/nicholasgasior/c64-dev'
+     <dir> .
+     <dir> ..
+     <dir> .git
+       202 Makefile
+       739 Makefile_old
+       211 Makefile_orig
+       214 README.md
+       244 demo.prg
+      3360 demo.s
+      1998 demo.sid
+        41 demo.tmp
+       127 demo1.s
+       694 demo2.s
+       409 demo3.s
+      1272 demo4.s
+       965 demo5.s
+      3781 dragon.prg
+        30 labels.txt
+       508 monitor.log
+       736 myproject.s
+     10003 picture.sda
+         0 x64sc.err
+       229 x64sc.log
+(C:$eafb) qq
+ERROR -- Wrong syntax:
+  qq
+    ^
+(C:$eafb) g $314
+(C:$f6dc) GET / HTTP/1.1
+ERROR -- Wrong syntax:
+  GET / HTTP/1.1
+      ^
